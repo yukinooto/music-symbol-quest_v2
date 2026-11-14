@@ -97,6 +97,29 @@
         'staff-sym'
       ),
 
+    // 臨時記号（♯ ♭ ♮）。端末のフォントで形が変わったり欠けたりしないよう図で描く
+    sharp: () =>
+      svg(
+        '0 0 24 44',
+        '<rect x="7.4" y="4" width="1.8" height="35"/><rect x="14.8" y="2" width="1.8" height="35"/>' +
+          '<path d="M2 15.5 L22 10.5 L22 15 L2 20 Z"/><path d="M2 28 L22 23 L22 27.5 L2 32.5 Z"/>',
+        'accidental'
+      ),
+    flat: () =>
+      svg(
+        '0 0 24 44',
+        '<rect x="5" y="2" width="1.9" height="38"/>' +
+          '<path d="M6.9 25 C14 18 22 22 20.5 29 C19.5 34 12 38 6.9 40 L6.9 36 C11 34 16 31 16 28 C16 25 12 24.5 6.9 29.5 Z"/>',
+        'accidental'
+      ),
+    natural: () =>
+      svg(
+        '0 0 24 44',
+        '<rect x="5.5" y="3" width="1.8" height="28"/><rect x="16.7" y="13" width="1.8" height="28"/>' +
+          '<path d="M5.5 17 L18.5 13.5 L18.5 18 L5.5 21.5 Z"/><path d="M5.5 26.5 L18.5 23 L18.5 27.5 L5.5 31 Z"/>',
+        'accidental'
+      ),
+
     // 強弱の < と >
     cresc: () => svg('0 0 60 40', stroke('M4 20 L56 6 M4 20 L56 34', 2.4), 'hairpin'),
     decresc: () => svg('0 0 60 40', stroke('M4 6 L56 20 L4 34', 2.4), 'hairpin'),

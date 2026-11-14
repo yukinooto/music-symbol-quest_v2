@@ -8,7 +8,12 @@
     { id: 'notation', label: '音高の変化・反復', icon: '🔁' },
   ];
 
-  const s = (id, category, display, reading, meaning) => ({ id, category, display, reading, meaning });
+  const s = (id, category, display, reading, meaning, alsoReads) => {
+    const sym = { id, category, display, reading, meaning };
+    // 同じ記号を別の読み方でも読める場合、その記号のid（読み方問題でどちらも正解にする）
+    if (alsoReads) sym.alsoReads = alsoReads;
+    return sym;
+  };
 
   const SYMBOLS = [
     // 音符と休符（長さの割合は4分音符を1とした場合）
@@ -53,7 +58,7 @@
     s('f', 'dynamics', 'f', 'フォルテ', '強く'),
     s('ff', 'dynamics', 'ff', 'フォルティッシモ', 'とても強く'),
     s('cresc', 'dynamics', 'crescendo (cresc.)', 'クレシェンド', 'だんだん強く'),
-    s('decresc', 'dynamics', 'decrescendo (decresc.)', 'デクレシェンド', 'だんだん弱く'),
+    s('decresc', 'dynamics', 'decrescendo (decresc.)', 'デクレシェンド', 'だんだん弱く', ['dim']),
     s('dim', 'dynamics', 'diminuendo (dim.)', 'ディミヌエンド', 'だんだん弱く'),
 
     // 音高の変化・反復の仕方に関するもの
@@ -61,7 +66,7 @@
     s('flat', 'notation', '♭', 'フラット', '半音下げる'),
     s('natural', 'notation', '♮', 'ナチュラル', 'もとの高さで'),
     s('dc', 'notation', 'D.C.', 'ダ カーポ', '始めから'),
-    s('ds', 'notation', 'D.S.', 'ダル セーニョ', '𝄋から'),
+    s('ds', 'notation', 'D.S.', 'ダル セーニョ', 'セーニョ記号のところから'),
     s('fine', 'notation', 'Fine', 'フィーネ', '終わり'),
     s('coda', 'notation', 'Coda', 'コーダ', '結び'),
   ];

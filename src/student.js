@@ -196,7 +196,7 @@
     const a = answers[index];
     $('choices').querySelectorAll('button').forEach((b, i) => {
       b.disabled = true;
-      if (i === q.correctIndex) b.classList.add('correct');
+      if (q.correctIndexes.includes(i)) b.classList.add('correct');
       else if (a && i === a.c) b.classList.add('wrong');
     });
   }
@@ -231,7 +231,7 @@
     if (!room || room.status !== 'playing' || !questions) return;
     const p = B.phaseAt(room.startAt, store.now(), rounds);
     if (p.phase !== 'question' || answers[p.index]) return;
-    const ok = choiceIndex === questions[p.index].correctIndex;
+    const ok = questions[p.index].correctIndexes.includes(choiceIndex);
     answers[p.index] = { c: choiceIndex, ms: p.elapsedMs, ok };
     player.play(ok ? 'correct' : 'wrong');
     markAnswered(p.index);

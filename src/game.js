@@ -23,7 +23,8 @@
 
   // 問題タイプごとの「問題文」と「選択肢」の表示内容
   function promptOf(sym, type) {
-    if (type === 'symbol') return { main: sym.meaning, sub: sym.reading };
+    // 読み方を出すと答えが分かってしまうので、問題文には出さない
+    if (type === 'symbol') return { main: sym.meaning, sub: '' };
     return { main: sym.display, sub: '' };
   }
 
@@ -58,7 +59,14 @@
 
     const options = shuffle([target, ...distractors], rng);
     const prompt = promptOf(target, type);
+    // 読み方問題では別の読み方(alsoReads)も、記号問題では同じ意味の記号も正解として受け付ける
+    let accepted = [];
+    if (type === 'reading') accepted = target.alsoReads || [];
+    else if (type === 'symbol') accepted = symbols.filter((x) => x.meaning === target.meaning).map((x) => x.id);
     return {
+      correctIndexes: options
+        .map((o, i) => (o.id === target.id || accepted.includes(o.id) ? i : -1))
+        .filter((i) => i >= 0),
       type,
       symbol: target,
       prompt,
